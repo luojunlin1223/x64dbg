@@ -143,11 +143,11 @@ bool cbDebugInit(int argc, char* argv[])
     case PeArch::Native86:
     case PeArch::Dotnet86:
     case PeArch::DotnetAnyCpuPrefer32:
-        dputs(QT_TRANSLATE_NOOP("DBG", "Use x32dbg to debug this file!"));
+        dputs(QT_TRANSLATE_NOOP("DBG", "Use vm32 to debug this file!"));
 #else // x86
     case PeArch::Native64:
     case PeArch::Dotnet64:
-        dputs(QT_TRANSLATE_NOOP("DBG", "Use x64dbg to debug this file!"));
+        dputs(QT_TRANSLATE_NOOP("DBG", "Use vm64 to debug this file!"));
 #endif // _WIN64
         return false;
     default:
@@ -222,7 +222,7 @@ bool cbDebugStop(int argc, char* argv[])
                 }
                 if(IsFileBeingDebugged() || TimeElapsed >= 100000)
                 {
-                    dputs(QT_TRANSLATE_NOOP("DBG", "The debuggee did not stop after 10 seconds of requesting termination. The debugger state may be corrupted. It is recommended to restart x64dbg."));
+                    dputs(QT_TRANSLATE_NOOP("DBG", "The debuggee did not stop after 10 seconds of requesting termination. The debugger state may be corrupted. It is recommended to restart vm64."));
                     DbSave(DbLoadSaveType::All);
                     TerminateThread(hDebugLoopThreadCopy, 1); // TODO: this will lose state and cause possible corruption if a critical section is still owned
                     CloseHandle(hDebugLoopThreadCopy);
@@ -295,9 +295,9 @@ bool cbDebugAttach(int argc, char* argv[])
     if(meow64 != wow64)
     {
 #ifdef _WIN64
-        dputs(QT_TRANSLATE_NOOP("DBG", "Use x32dbg to debug this process!"));
+        dputs(QT_TRANSLATE_NOOP("DBG", "Use vm32 to debug this process!"));
 #else
-        dputs(QT_TRANSLATE_NOOP("DBG", "Use x64dbg to debug this process!"));
+        dputs(QT_TRANSLATE_NOOP("DBG", "Use vm64 to debug this process!"));
 #endif // _WIN64
         return false;
     }

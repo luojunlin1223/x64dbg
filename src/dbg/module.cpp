@@ -929,7 +929,7 @@ std::unique_ptr<MODINFO> MODINFO::load(duint Base, duint Size, const char* FullP
         bool fileLoaded = false;
 
         // 1. If we have a file handle from the debug event, try mapping from it first
-        // https://github.com/x64dbg/x64dbg/issues/3756
+        // https://github.com/vm64/vm64/issues/3756
         if(hFile)
         {
             LARGE_INTEGER fileSizeLI;

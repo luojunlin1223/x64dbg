@@ -26,7 +26,7 @@
 #include "function.h"
 #include "loop.h"
 #include "exception.h"
-#include "x64dbg.h"
+#include "vm64.h"
 #include "xrefs.h"
 #include "encodemap.h"
 #include "argument.h"
@@ -139,7 +139,7 @@ static bool shouldFilterSymbol(const char* name)
 }
 
 // https://github.com/llvm-mirror/llvm/blob/2ae7de27f7d9276e7bada445ea7576bbc4c83ae6/lib/DebugInfo/Symbolize/Symbolize.cpp#L427
-// https://github.com/x64dbg/x64dbg/pull/1478
+// https://github.com/vm64/vm64/pull/1478
 // Undo these various manglings for Win32 extern "C" functions:
 // cdecl       - _foo
 // stdcall     - _foo@12
@@ -337,7 +337,7 @@ static bool getAutoComment(duint addr, String & comment)
     // Some nop variants have 'operands' that should be ignored
     if(zydis.Success() && !zydis.IsNop())
     {
-        //Ignore register values when not on CIP and OnlyCipAutoComments is enabled: https://github.com/x64dbg/x64dbg/issues/1383
+        //Ignore register values when not on CIP and OnlyCipAutoComments is enabled: https://github.com/vm64/vm64/issues/1383
         if(!getregs)
         {
             for(int i = 0; i < instr.argcount; i++)

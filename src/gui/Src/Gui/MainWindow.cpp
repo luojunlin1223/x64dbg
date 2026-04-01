@@ -692,7 +692,7 @@ void MainWindow::loadSelectedTheme(bool reloadOnlyStyleCss)
         Config()->Colors = Config()->defaultColors;
         Config()->writeColors();
         BridgeSettingSetUint("Colors", "DarkTitleBar", 0);
-        // Reset [Fonts] to default (TODO: https://github.com/x64dbg/x64dbg/issues/2422)
+        // Reset [Fonts] to default (TODO: https://github.com/vm64/vm64/issues/2422)
         //Config()->Fonts = Config()->defaultFonts;
         //Config()->writeFonts();
         // Remove custom colors
@@ -759,7 +759,7 @@ void MainWindow::setupLanguagesMenu2()
     if(currentLocale == QString("en_US"))
         action_enUS->setChecked(true);
     QStringList filter;
-    filter << "x64dbg_*.qm";
+    filter << "vm64_*.qm";
     QFileInfoList fileList = translationsDir.entryInfoList(filter, QDir::Readable | QDir::Files, QDir::Size); //Search for all translations
     auto allLocales = QLocale::matchingLocales(QLocale::AnyLanguage, QLocale::AnyScript, QLocale::AnyCountry);
     for(auto i : fileList)
@@ -804,13 +804,13 @@ void MainWindow::closeEvent(QCloseEvent* event)
         msgbox.setWindowIcon(DIcon("bug"));
         auto exitButton = msgbox.addButton(QMessageBox::Yes);
         exitButton->setText(tr("&Exit"));
-        exitButton->setToolTip(tr("Stop the debuggee and exit x64dbg."));
+        exitButton->setToolTip(tr("Stop the debuggee and exit vm64."));
         auto detachButton = msgbox.addButton(QMessageBox::Abort);
         detachButton->setText(tr("&Detach and exit"));
-        detachButton->setToolTip(tr("Detach from the debuggee (leaving it running) and exit x64dbg."));
+        detachButton->setToolTip(tr("Detach from the debuggee (leaving it running) and exit vm64."));
         auto restartButton = msgbox.addButton(QMessageBox::Retry);
         restartButton->setText(tr("&Restart debugging"));
-        restartButton->setToolTip(tr("Restart the debuggee and keep x64dbg open."));
+        restartButton->setToolTip(tr("Restart the debuggee and keep vm64 open."));
         auto continueButton = msgbox.addButton(QMessageBox::Cancel);
         continueButton->setText(tr("&Continue debugging"));
         continueButton->setToolTip(tr("Close this dialog and continue where you left off."));
@@ -1053,7 +1053,7 @@ void MainWindow::loadWindowSettings()
     mCpuWidget->loadWindowSettings();
     mSymbolView->loadWindowSettings();
 
-    // Make x64dbg topmost
+    // Make vm64 topmost
     if(ConfigBool("Gui", "Topmost"))
         ui->actionTopmost->setChecked(true);
 
@@ -1063,7 +1063,7 @@ void MainWindow::loadWindowSettings()
         SimpleErrorBox(
             this,
             tr("Unsupported system"),
-            tr("You are running x64dbg in ARM64 emulation mode. <b>This system is not supported by x64dbg and will cause unexpected behavior.</b> Analyzing malware in this environment is dangerous and you should switch to an actual Intel/AMD CPU.<br><br>For more information, see the <a href=\"%1\">FAQ</a>.").arg("https://faq.x64dbg.com")
+            tr("You are running vm64 in ARM64 emulation mode. <b>This system is not supported by vm64 and will cause unexpected behavior.</b> Analyzing malware in this environment is dangerous and you should switch to an actual Intel/AMD CPU.<br><br>For more information, see the <a href=\"%1\">FAQ</a>.").arg("https://faq.vm64.com")
         );
     }
     if(BridgeGetNtBuildNumber() < 10000)
@@ -1071,12 +1071,12 @@ void MainWindow::loadWindowSettings()
         SimpleErrorBox(
             this,
             tr("Unsupported system"),
-            tr("You are running x64dbg on an unsupported operating system version. <b>Future updates will completely stop running on this system.</b><br><br>For more information, see the official <a href=\"%1\">announcement</a>.").arg("https://transition.x64dbg.com"),
+            tr("You are running vm64 on an unsupported operating system version. <b>Future updates will completely stop running on this system.</b><br><br>For more information, see the official <a href=\"%1\">announcement</a>.").arg("https://transition.vm64.com"),
             "HideErrorUnsupportedSystem"
         );
     }
 
-#ifdef X64DBG_RELEASE
+#ifdef VM64_RELEASE
     auto compileDate = QDateTime(GetCompileDate());
     compileDate.setTimeSpec(Qt::UTC);
     auto compileEpoch = compileDate.toSecsSinceEpoch();
@@ -1089,7 +1089,7 @@ void MainWindow::loadWindowSettings()
         BridgeSettingSetUint("Gui", "ReleaseNotesEpoch", compileEpoch);
         BridgeSettingFlush();
     }
-#endif // X64DBG_RELEASE
+#endif // VM64_RELEASE
 }
 
 void MainWindow::setGlobalShortcut(QAction* action, const QKeySequence & key)
@@ -1228,8 +1228,8 @@ void MainWindow::showReleaseNotes(duint cutoffEpoch)
             this,
             tr("Error"),
             tr("Release notes are not available, see <a href=\"%1\">%2</a> for the latest updates.")
-            .arg("https://update.x64dbg.com")
-            .arg("update.x64dbg.com")
+            .arg("https://update.vm64.com")
+            .arg("update.vm64.com")
         );
         return;
     }
@@ -1263,7 +1263,7 @@ void MainWindow::showReleaseNotes(duint cutoffEpoch)
     auto position = frameGeometry().center() - dialog.frameGeometry().center();
     position.setY(position.y() - titleBarHeight / 2);
     dialog.move(position);
-    dialog.setMarkdown(markdown, "https://github.com/x64dbg/x64dbg/issues/");
+    dialog.setMarkdown(markdown, "https://github.com/vm64/vm64/issues/");
     dialog.setWindowIcon(DIcon("bug"));
     dialog.exec();
 }
@@ -2165,7 +2165,7 @@ void MainWindow::displayTraceWidget()
 
 void MainWindow::donate()
 {
-    QMessageBox msg(QMessageBox::Information, tr("Donate"), tr("All the money will go to x64dbg development."));
+    QMessageBox msg(QMessageBox::Information, tr("Donate"), tr("All the money will go to vm64 development."));
     msg.setWindowIcon(DIcon("donate"));
     msg.setParent(this, Qt::Dialog);
     msg.setWindowFlags(msg.windowFlags() & (~Qt::WindowContextHelpButtonHint));
@@ -2173,12 +2173,12 @@ void MainWindow::donate()
     msg.setDefaultButton(QMessageBox::Ok);
     if(msg.exec() != QMessageBox::Ok)
         return;
-    QDesktopServices::openUrl(QUrl("https://donate.x64dbg.com"));
+    QDesktopServices::openUrl(QUrl("https://donate.vm64.com"));
 }
 
 void MainWindow::blog()
 {
-    QMessageBox msg(QMessageBox::Information, tr("Blog"), tr("You will visit x64dbg's official blog."));
+    QMessageBox msg(QMessageBox::Information, tr("Blog"), tr("You will visit vm64's official blog."));
     msg.setWindowIcon(DIcon("hex"));
     msg.setParent(this, Qt::Dialog);
     msg.setWindowFlags(msg.windowFlags() & (~Qt::WindowContextHelpButtonHint));
@@ -2186,7 +2186,7 @@ void MainWindow::blog()
     msg.setDefaultButton(QMessageBox::Ok);
     if(msg.exec() != QMessageBox::Ok)
         return;
-    QDesktopServices::openUrl(QUrl("https://blog.x64dbg.com"));
+    QDesktopServices::openUrl(QUrl("https://blog.vm64.com"));
 }
 
 void MainWindow::reportBug()
@@ -2199,7 +2199,7 @@ void MainWindow::reportBug()
     msg.setDefaultButton(QMessageBox::Ok);
     if(msg.exec() != QMessageBox::Ok)
         return;
-    QDesktopServices::openUrl(QUrl("https://report.x64dbg.com"));
+    QDesktopServices::openUrl(QUrl("https://report.vm64.com"));
 }
 
 void MainWindow::crashDump()
@@ -2289,7 +2289,7 @@ void MainWindow::changeCommandLine()
 
 static void onlineManual()
 {
-    QDesktopServices::openUrl(QUrl("https://help.x64dbg.com"));
+    QDesktopServices::openUrl(QUrl("https://help.vm64.com"));
 }
 
 void MainWindow::displayManual()
@@ -2298,11 +2298,11 @@ void MainWindow::displayManual()
     if(BridgeSettingGetUint("Misc", "UseLocalHelpFile", &setting) && setting)
     {
         // Open the Windows CHM in the upper directory
-        if(!QDesktopServices::openUrl(QUrl(QUrl::fromLocalFile(QString("%1/../x64dbg.chm").arg(QCoreApplication::applicationDirPath())))))
+        if(!QDesktopServices::openUrl(QUrl(QUrl::fromLocalFile(QString("%1/../vm64.chm").arg(QCoreApplication::applicationDirPath())))))
         {
             QMessageBox messagebox(QMessageBox::Critical, tr("Error"),
-                                   tr("Manual cannot be opened. Please check if x64dbg.chm exists and ensure there is no other problems with your system.") + '\n'
-                                   + tr("Do you want to open online manual at https://help.x64dbg.com ?"),
+                                   tr("Manual cannot be opened. Please check if vm64.chm exists and ensure there is no other problems with your system.") + '\n'
+                                   + tr("Do you want to open online manual at https://help.vm64.com ?"),
                                    QMessageBox::Yes | QMessageBox::No);
             if(messagebox.exec() == QMessageBox::Yes)
                 onlineManual();
@@ -2387,7 +2387,7 @@ void MainWindow::dbgStateChangedSlot(DBGSTATE state)
 
 void MainWindow::on_actionFaq_triggered()
 {
-    QDesktopServices::openUrl(QUrl("https://faq.x64dbg.com"));
+    QDesktopServices::openUrl(QUrl("https://faq.vm64.com"));
 }
 
 void MainWindow::on_actionReloadStylesheet_triggered()
@@ -2604,7 +2604,7 @@ void MainWindow::chooseLanguage()
     if(localeName != "en_US")
     {
         QDir translationsDir(QString("%1/../translations/").arg(QCoreApplication::applicationDirPath()));
-        QFile file(translationsDir.absoluteFilePath(QString("x64dbg_%1.qm").arg(localeName)));
+        QFile file(translationsDir.absoluteFilePath(QString("vm64_%1.qm").arg(localeName)));
         // A translation file less than 0.5KB is probably not useful
         if(file.size() < 512)
         {
@@ -2842,7 +2842,7 @@ void MainWindow::onMenuCustomized()
 
 void MainWindow::on_actionPlugins_triggered()
 {
-    QDesktopServices::openUrl(QUrl("https://plugins.x64dbg.com"));
+    QDesktopServices::openUrl(QUrl("https://plugins.vm64.com"));
 }
 
 void MainWindow::on_actionCheckUpdates_triggered()

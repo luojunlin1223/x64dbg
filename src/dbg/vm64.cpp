@@ -1,5 +1,5 @@
 /**
- @file x64dbg.cpp
+ @file vm64.cpp
 
  @brief Implements the 64 debug class.
  */
@@ -11,7 +11,7 @@
 #include "debugger.h"
 #include "simplescript.h"
 #include "console.h"
-#include "x64dbg.h"
+#include "vm64.h"
 #include "msgqueue.h"
 #include "threading.h"
 #include "watch.h"
@@ -492,7 +492,7 @@ static void registercommands()
     dbgcmdnew("mnemonicbrief", cbInstrMnemonicbrief, false); //mnemonic brief
 
     dbgcmdnew("config", cbInstrConfig, false); //get or set config uint
-    dbgcmdnew("restartadmin,runas,adminrestart", cbInstrRestartadmin, false); //restart x64dbg as administrator
+    dbgcmdnew("restartadmin,runas,adminrestart", cbInstrRestartadmin, false); //restart vm64 as administrator
 
     //undocumented
     dbgcmdnew("bench", cbDebugBenchmark, true); //benchmark test (readmem etc)
@@ -716,7 +716,7 @@ public:
     bool testing = false;
     bool help = false;
 
-    CommandlineArguments() : ArgumentParser(ArchValue("x32dbg", "x64dbg"))
+    CommandlineArguments() : ArgumentParser(ArchValue("vm32", "vm64"))
     {
         addPositional("filename", filename, "Filename of program to debug.");
         addExtra(arguments);

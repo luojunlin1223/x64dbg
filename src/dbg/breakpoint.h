@@ -2,7 +2,7 @@
 
 #include "_global.h"
 #include "_dbgfunctions.h"
-#include "jansson/jansson_x64dbg.h"
+#include "jansson/jansson_vm64.h"
 
 extern bool bTruncateBreakpointLogs;
 

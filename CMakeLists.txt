@@ -32,15 +32,15 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 endif()
 
 # Options
-option(X64DBG_BUILD_IN_TREE "" ON)
-option(X64DBG_RELEASE "" OFF)
+option(VM64_BUILD_IN_TREE "" ON)
+option(VM64_RELEASE "" OFF)
 
 # Variables
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 include("cmake/VSToolchain.cmake")
 
-project(x64dbg
+project(vm64
 	LANGUAGES
 		C
 		CXX
@@ -333,7 +333,7 @@ set(dbg_SOURCES
 	"src/dbg/historycontext.h"
 	"src/dbg/jansson/jansson.h"
 	"src/dbg/jansson/jansson_config.h"
-	"src/dbg/jansson/jansson_x64dbg.h"
+	"src/dbg/jansson/jansson_vm64.h"
 	"src/dbg/jit.cpp"
 	"src/dbg/jit.h"
 	"src/dbg/jobqueue.h"
@@ -408,8 +408,8 @@ set(dbg_SOURCES
 	"src/dbg/variable.h"
 	"src/dbg/watch.cpp"
 	"src/dbg/watch.h"
-	"src/dbg/x64dbg.cpp"
-	"src/dbg/x64dbg.h"
+	"src/dbg/vm64.cpp"
+	"src/dbg/vm64.h"
 	"src/dbg/xrefs.cpp"
 	"src/dbg/xrefs.h"
 )
@@ -494,14 +494,14 @@ endif()
 if(CMAKE_SIZEOF_VOID_P EQUAL 4) # x86
 	set_target_properties(dbg PROPERTIES
 		OUTPUT_NAME
-			x32dbg
+			vm32
 	)
 endif()
 
 if(CMAKE_SIZEOF_VOID_P EQUAL 8) # x64
 	set_target_properties(dbg PROPERTIES
 		OUTPUT_NAME
-			x64dbg
+			vm64
 	)
 endif()
 
@@ -846,16 +846,16 @@ add_library(gui SHARED)
 target_sources(gui PRIVATE ${gui_SOURCES})
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${gui_SOURCES})
 
-if(X64DBG_RELEASE) # X64DBG_RELEASE
+if(VM64_RELEASE) # VM64_RELEASE
 	target_compile_definitions(gui PUBLIC
-		X64DBG_RELEASE
+		VM64_RELEASE
 	)
 endif()
 
 target_compile_definitions(gui PRIVATE
 	BUILD_LIB
 	NOMINMAX
-	X64DBG
+	VM64
 )
 
 target_include_directories(gui PRIVATE
@@ -909,14 +909,14 @@ endif()
 if(CMAKE_SIZEOF_VOID_P EQUAL 4) # x86
 	set_target_properties(gui PROPERTIES
 		OUTPUT_NAME
-			x32gui
+			vm32gui
 	)
 endif()
 
 if(CMAKE_SIZEOF_VOID_P EQUAL 8) # x64
 	set_target_properties(gui PROPERTIES
 		OUTPUT_NAME
-			x64gui
+			vm64gui
 	)
 endif()
 
@@ -946,7 +946,7 @@ set(exe_SOURCES
 	"src/exe/signaturecheck.h"
 	"src/exe/strings.h"
 	"src/exe/strings_utf8.rc"
-	"src/exe/x64dbg_exe.cpp"
+	"src/exe/vm64_exe.cpp"
 )
 
 if(CMAKE_SIZEOF_VOID_P EQUAL 4) # x86
@@ -1015,18 +1015,18 @@ set_target_properties(exe PROPERTIES
 if(CMAKE_SIZEOF_VOID_P EQUAL 4) # x86
 	set_target_properties(exe PROPERTIES
 		OUTPUT_NAME
-			x32dbg
+			vm32
 		PDB_NAME
-			x32dbg_exe
+			vm32_exe
 	)
 endif()
 
 if(CMAKE_SIZEOF_VOID_P EQUAL 8) # x64
 	set_target_properties(exe PROPERTIES
 		OUTPUT_NAME
-			x64dbg
+			vm64
 		PDB_NAME
-			x64dbg_exe
+			vm64_exe
 	)
 endif()
 
@@ -1127,7 +1127,7 @@ if(CMAKE_SIZEOF_VOID_P EQUAL 4) # x86
 		"src/exe/icon.rc"
 		"src/exe/resource.rc"
 		"src/exe/strings_utf8.rc"
-		"src/launcher/x64dbg_launcher.cpp"
+		"src/launcher/vm64_launcher.cpp"
 	)
 
 	add_executable(launcher)
@@ -1144,12 +1144,12 @@ if(CMAKE_SIZEOF_VOID_P EQUAL 4) # x86
 		MSVC_RUNTIME_LIBRARY
 			"MultiThreaded$<$<CONFIG:Debug>:Debug>"
 		OUTPUT_NAME
-			x96dbg
+			vm96
 		WIN32_EXECUTABLE
 			ON
 	)
 
-	if(X64DBG_BUILD_IN_TREE) # X64DBG_BUILD_IN_TREE
+	if(VM64_BUILD_IN_TREE) # VM64_BUILD_IN_TREE
 		set_target_properties(launcher PROPERTIES
 			RUNTIME_OUTPUT_DIRECTORY
 				"${PROJECT_SOURCE_DIR}/bin"

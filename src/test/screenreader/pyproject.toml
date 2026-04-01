@@ -1,7 +1,7 @@
 [project]
-name = "x64dbg-screenreader-checks"
+name = "vm64-screenreader-checks"
 version = "0.1.0"
-description = "UIA-based accessibility checks for x64dbg table views."
+description = "UIA-based accessibility checks for vm64 table views."
 requires-python = ">=3.11"
 dependencies = [
     "pywinauto>=0.6.9",
@@ -11,8 +11,8 @@ dependencies = [
 py-modules = ["screenreader_check", "ui_dump", "ui_common"]
 
 [project.scripts]
-x64dbg-screenreader-checks = "screenreader_check:main"
-x64dbg-ui-dump = "ui_dump:main"
+vm64-screenreader-checks = "screenreader_check:main"
+vm64-ui-dump = "ui_dump:main"
 
 [tool.uv]
 package = true

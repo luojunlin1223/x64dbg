@@ -5,7 +5,7 @@
 #include "threading.h"
 #include "module.h"
 #include "memory.h"
-#include "jansson/jansson_x64dbg.h"
+#include "jansson/jansson_vm64.h"
 
 template<class TValue>
 class JSONWrapper

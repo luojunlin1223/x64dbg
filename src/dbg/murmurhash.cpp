@@ -7,8 +7,8 @@
 // compile and run any of them on any platform, but your performance with the
 // non-native version will be less than optimal.
 
-// x64dbg: changed 'int len' to 'size_t len' and converted loops to forward
-// indexing to support files >2GB. See: https://github.com/x64dbg/x64dbg/issues/3583
+// vm64: changed 'int len' to 'size_t len' and converted loops to forward
+// indexing to support files >2GB. See: https://github.com/vm64/vm64/issues/3583
 
 #include "murmurhash.h"
 

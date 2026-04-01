@@ -514,7 +514,7 @@ void ScriptView::paste()
 {
     filename.clear();
     DbgScriptUnload();
-    DbgScriptLoad("x64dbg://localhost/clipboard");
+    DbgScriptLoad("vm64://localhost/clipboard");
 }
 
 void ScriptView::reload()

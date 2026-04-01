@@ -1,5 +1,5 @@
 #include "animate.h"
-#include "x64dbg.h"
+#include "vm64.h"
 #include "command.h"
 
 char animate_command[deflen];

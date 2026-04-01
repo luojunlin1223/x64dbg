@@ -93,7 +93,7 @@ if(NOT TARGET udmp-parser)
 endif()
 
 target_link_libraries(minidump PRIVATE
-	x64dbg::widgets
+	vm64::widgets
 	httplib::httplib
 	linux-pe
 	udmp-parser
@@ -131,7 +131,7 @@ target_compile_features(remote_table PRIVATE
 )
 
 target_link_libraries(remote_table PRIVATE
-	x64dbg::widgets
+	vm64::widgets
 	nlohmann_json::nlohmann_json
 )
 
@@ -158,7 +158,7 @@ target_include_directories(release_notes PRIVATE
 )
 
 target_link_libraries(release_notes PRIVATE
-	x64dbg::widgets
+	vm64::widgets
 )
 
 get_directory_property(CMKR_VS_STARTUP_PROJECT DIRECTORY ${PROJECT_SOURCE_DIR} DEFINITION VS_STARTUP_PROJECT)
@@ -212,7 +212,7 @@ if(NOT TARGET libpl-gen)
 endif()
 
 target_link_libraries(hex_viewer PRIVATE
-	x64dbg::widgets
+	vm64::widgets
 	libpl
 	libpl-gen
 	fmt::fmt-header-only

@@ -3,7 +3,7 @@
 #include "_global.h"
 #include "_dbgfunctions.h"
 #include "debugger.h"
-#include "jansson/jansson_x64dbg.h"
+#include "jansson/jansson_vm64.h"
 #include <zydis_wrapper.h>
 
 class TraceRecordManager

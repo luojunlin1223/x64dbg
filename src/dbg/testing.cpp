@@ -47,13 +47,13 @@ static void setFirstFailureMessage(const String & message)
 static void logAssertionFailure(const char* source, const char* expression, const char* message)
 {
     if(expression && *expression && message && *message)
-        dprintf_untranslated("[x64dbg-test] ASSERT FAIL source=%s expr=\"%s\" message=\"%s\"\n", source, expression, message);
+        dprintf_untranslated("[vm64-test] ASSERT FAIL source=%s expr=\"%s\" message=\"%s\"\n", source, expression, message);
     else if(expression && *expression)
-        dprintf_untranslated("[x64dbg-test] ASSERT FAIL source=%s expr=\"%s\"\n", source, expression);
+        dprintf_untranslated("[vm64-test] ASSERT FAIL source=%s expr=\"%s\"\n", source, expression);
     else if(message && *message)
-        dprintf_untranslated("[x64dbg-test] ASSERT FAIL source=%s message=\"%s\"\n", source, message);
+        dprintf_untranslated("[vm64-test] ASSERT FAIL source=%s message=\"%s\"\n", source, message);
     else
-        dprintf_untranslated("[x64dbg-test] ASSERT FAIL source=%s\n", source);
+        dprintf_untranslated("[vm64-test] ASSERT FAIL source=%s\n", source);
 }
 
 static bool assertCommon(bool condition, const char* source, const char* expression, const char* message)
@@ -120,7 +120,7 @@ bool cbInstrTestAssert(int argc, char* argv[])
 {
     if(!TestIsEnabled())
     {
-        dputs(QT_TRANSLATE_NOOP("DBG", "[x64dbg-test] testassert requires -testing"));
+        dputs(QT_TRANSLATE_NOOP("DBG", "[vm64-test] testassert requires -testing"));
         return false;
     }
     if(IsArgumentsLessThan(argc, 2))
@@ -144,7 +144,7 @@ bool cbInstrTestFinalize(int argc, char* argv[])
 {
     if(!TestIsEnabled())
     {
-        dputs(QT_TRANSLATE_NOOP("DBG", "[x64dbg-test] testfinalize requires -testing"));
+        dputs(QT_TRANSLATE_NOOP("DBG", "[vm64-test] testfinalize requires -testing"));
         return false;
     }
 
@@ -169,9 +169,9 @@ bool cbInstrTestFinalize(int argc, char* argv[])
         reason = "script_failed";
 
     if(reason)
-        dprintf_untranslated("[x64dbg-test] FINAL status=fail asserts=%llu reason=%s\n", asserts, reason);
+        dprintf_untranslated("[vm64-test] FINAL status=fail asserts=%llu reason=%s\n", asserts, reason);
     else
-        dprintf_untranslated("[x64dbg-test] FINAL status=pass asserts=%llu\n", asserts);
+        dprintf_untranslated("[vm64-test] FINAL status=pass asserts=%llu\n", asserts);
 
     if(BridgeIsHeadless())
         GuiCloseApplication();

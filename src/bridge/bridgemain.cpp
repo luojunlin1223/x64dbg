@@ -26,11 +26,11 @@ static bool bIsHeadless;
         return;
 
 #ifdef _WIN64
-#define dbg_lib L"x64dbg.dll"
-#define gui_lib L"x64gui.dll"
+#define dbg_lib L"vm64.dll"
+#define gui_lib L"vm64gui.dll"
 #else
-#define dbg_lib L"x32dbg.dll"
-#define gui_lib L"x32gui.dll"
+#define dbg_lib L"vm32.dll"
+#define gui_lib L"vm32gui.dll"
 #endif // _WIN64
 
 #define LOADLIBRARY(name) \
@@ -87,7 +87,7 @@ static const wchar_t* InitializeUserDirectory(HINSTANCE hMainModule, const wchar
     // Set the current directory to the application directory
     SetCurrentDirectoryW(szUserDirectory);
 
-    // Extract the file name of the x64dbg executable (without extension)
+    // Extract the file name of the vm64 executable (without extension)
     auto fileNameWithoutExtension = backslash + 1;
     auto period = wcschr(fileNameWithoutExtension, L'.');
     if(period != nullptr)

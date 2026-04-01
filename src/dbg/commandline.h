@@ -3,7 +3,7 @@
 
 #include "_global.h"
 #include "command.h"
-#include "jansson/jansson_x64dbg.h"
+#include "jansson/jansson_vm64.h"
 
 typedef enum
 {

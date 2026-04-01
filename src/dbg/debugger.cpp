@@ -16,7 +16,7 @@
 #include "breakpoint.h"
 #include "symbolinfo.h"
 #include "variable.h"
-#include "x64dbg.h"
+#include "vm64.h"
 #include "exception.h"
 #include "module.h"
 #include "commandline.h"
@@ -1845,7 +1845,7 @@ static void cbLoadDll(LOAD_DLL_DEBUG_INFO* LoadDll)
     void* base = LoadDll->lpBaseOfDll;
 
     // Retrieve the DLL path using a fallback
-    // https://github.com/x64dbg/x64dbg/issues/3756
+    // https://github.com/vm64/vm64/issues/3756
     char DLLDebugFileName[MAX_PATH] = "";
     bool validPath = false;
 
@@ -1858,7 +1858,7 @@ static void cbLoadDll(LOAD_DLL_DEBUG_INFO* LoadDll)
 
     //2 - Invalidate section cache and retry
     // FSCTL_CHECK_FOR_SECTION releases cached image sections, fixing stale paths from kernel section caching.
-    // https://github.com/x64dbg/x64dbg/issues/3756
+    // https://github.com/vm64/vm64/issues/3756
     if(!validPath && LoadDll->hFile)
     {
         IO_STATUS_BLOCK iosb = {};
@@ -2910,7 +2910,7 @@ static void debugLoopFunction(INIT_STRUCT* init)
                 if(answer == IDNO)
                 {
                     //No auto launching the binary on the other admin restart
-                    //https://github.com/x64dbg/x64dbg/issues/3658
+                    //https://github.com/vm64/vm64/issues/3658
                     gInitExe.clear();
                     gInitCmd.clear();
                     gInitDir.clear();
@@ -2919,7 +2919,7 @@ static void debugLoopFunction(INIT_STRUCT* init)
             else if(isElevated)
             {
                 //This is most likely an application with uiAccess="true"
-                //https://github.com/x64dbg/x64dbg/issues/1501
+                //https://github.com/vm64/vm64/issues/1501
                 //https://blogs.techsmith.com/inside-techsmith/devcorner-debug-uiaccess
                 error += ", uiAccess=\"true\"";
             }
@@ -2939,9 +2939,9 @@ static void debugLoopFunction(INIT_STRUCT* init)
         if((mewow64 && !wow64) || (!mewow64 && wow64))
         {
 #ifdef _WIN64
-            dputs(QT_TRANSLATE_NOOP("DBG", "Use x32dbg to debug this process!"));
+            dputs(QT_TRANSLATE_NOOP("DBG", "Use vm32 to debug this process!"));
 #else
-            dputs(QT_TRANSLATE_NOOP("DBG", "Use x64dbg to debug this process!"));
+            dputs(QT_TRANSLATE_NOOP("DBG", "Use vm64 to debug this process!"));
 #endif // _WIN64
             return;
         }
@@ -3027,7 +3027,7 @@ static void debugLoopFunction(INIT_STRUCT* init)
         DebugLoop();
     }
 
-    //fixes data loss when attach failed (https://github.com/x64dbg/x64dbg/issues/1899)
+    //fixes data loss when attach failed (https://github.com/vm64/vm64/issues/1899)
     DbClose();
 
     //call plugin callback
@@ -3105,7 +3105,7 @@ void dbgcreatedebugthread(INIT_STRUCT* init)
         auto loadedDrivers = LoadedAntiCheatDrivers();
         if(!loadedDrivers.empty())
         {
-            auto translatedFormat = GuiTranslateText(QT_TRANSLATE_NOOP("DBG", "Drivers known to interfere with x64dbg's operation have been detected.\n\nList of drivers:\n%s\n\nDo you want to continue debugging?"));
+            auto translatedFormat = GuiTranslateText(QT_TRANSLATE_NOOP("DBG", "Drivers known to interfere with vm64's operation have been detected.\n\nList of drivers:\n%s\n\nDo you want to continue debugging?"));
             auto message = StringUtils::sprintf(translatedFormat, loadedDrivers.c_str());
             auto continueDebugging = GuiScriptMsgyn(message.c_str());
             if(!continueDebugging)
@@ -3175,7 +3175,7 @@ bool dbgrestartadmin()
 void StepIntoWow64(TITANCBSTEP callback)
 {
 #ifndef _WIN64
-    //NOTE: this workaround has the potential of detecting x64dbg while tracing, disable it if that happens
+    //NOTE: this workaround has the potential of detecting vm64 while tracing, disable it if that happens
     if(!bNoWow64SingleStepWorkaround)
     {
         unsigned char data[7];

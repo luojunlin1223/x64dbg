@@ -153,7 +153,7 @@ BRIDGE_IMPEXP unsigned int BridgeGetNtBuildNumber();
 
 /// <summary>
 /// Returns the original working directory when starting the debugger.
-/// The working directory is changed to the x64dbg directory after initialization.
+/// The working directory is changed to the vm64 directory after initialization.
 /// </summary>
 BRIDGE_IMPEXP const wchar_t* BridgeWorkingDirectory();
 
@@ -163,7 +163,7 @@ BRIDGE_IMPEXP const wchar_t* BridgeWorkingDirectory();
 BRIDGE_IMPEXP const wchar_t* BridgeUserDirectory();
 
 /// <summary>
-/// Returns true if x64dbg is running under ARM64 emulation.
+/// Returns true if vm64 is running under ARM64 emulation.
 /// </summary>
 BRIDGE_IMPEXP bool BridgeIsARM64Emulated();
 

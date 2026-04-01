@@ -1,7 +1,7 @@
 #include "mnemonichelp.h"
 #include "threading.h"
 #include <atomic>
-#include "jansson/jansson_x64dbg.h"
+#include "jansson/jansson_vm64.h"
 #include "debugger.h"
 #include "filehelper.h"
 

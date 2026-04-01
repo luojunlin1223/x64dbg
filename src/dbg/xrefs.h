@@ -2,7 +2,7 @@
 #define _XREFS_H
 
 #include "_global.h"
-#include "jansson/jansson_x64dbg.h"
+#include "jansson/jansson_vm64.h"
 
 bool XrefAdd(duint Address, duint From);
 duint XrefAddMulti(const XREF_EDGE* Edges, duint Count);

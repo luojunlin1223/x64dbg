@@ -1,7 +1,7 @@
 #pragma once
 
 #include "_global.h"
-#include "jansson/jansson_x64dbg.h"
+#include "jansson/jansson_vm64.h"
 #include "expressionparser.h"
 #include <map>
 

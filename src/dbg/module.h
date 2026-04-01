@@ -1,6 +1,6 @@
 #pragma once
 
-#include "jansson/jansson_x64dbg.h" // addrinfo.h and serializablemap.h use functions defined here so can't be included
+#include "jansson/jansson_vm64.h" // addrinfo.h and serializablemap.h use functions defined here so can't be included
 #include <functional>
 #include <memory>
 

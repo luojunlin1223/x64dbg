@@ -11,12 +11,12 @@
 #include "DeviceNameResolver/DeviceNameResolver.h"
 
 /**
-\brief x64dbg library instance.
+\brief vm64 library instance.
 */
 HINSTANCE hInst;
 
 /**
-\brief Number of allocated buffers by emalloc(). This should be 0 when x64dbg ends.
+\brief Number of allocated buffers by emalloc(). This should be 0 when vm64 ends.
 */
 static int emalloc_count = 0;
 #ifdef ENABLE_MEM_TRACE
@@ -275,7 +275,7 @@ bool GetFileNameFromModuleHandle(HANDLE hProcess, HMODULE hModule, char* szFileN
         if(DevicePathToPathW(wszDosFileName, wszFileName, _countof(wszFileName)))
         {
             // Verify the file exists - GetMappedFileNameW can return stale paths due to kernel section caching
-            // https://github.com/x64dbg/x64dbg/issues/3756
+            // https://github.com/vm64/vm64/issues/3756
             if(GetFileAttributesW(wszFileName) != INVALID_FILE_ATTRIBUTES)
                 result = true;
         }
@@ -310,13 +310,13 @@ bool settingboolget(const char* section, const char* name, bool defaultValue)
 }
 
 /**
-\brief Query if x64dbg is running in Wow64 mode.
+\brief Query if vm64 is running in Wow64 mode.
 \return true if running in Wow64, false otherwise.
 */
 bool IsWow64()
 {
     BOOL bIsWow64Process = FALSE;
-    //x64dbg supports WinXP SP3 and later only, so ignore the GetProcAddress crap :D
+    //vm64 supports WinXP SP3 and later only, so ignore the GetProcAddress crap :D
     IsWow64Process(GetCurrentProcess(), &bIsWow64Process);
     return !!bIsWow64Process;
 }

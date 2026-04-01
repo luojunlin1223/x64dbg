@@ -148,7 +148,7 @@ void HexDump::updateDumpSlot()
                     mUpdateCache = cur;
                     mUpdateCacheData.swap(mUpdateCacheTemp);
 #ifdef DEBUG
-                    OutputDebugStringA(QString("[x64dbg] %1[%2] %3[%4]").arg(ToPtrString(mUpdateCache.memBase)).arg(ToHexString(mUpdateCache.memSize)).arg(ToPtrString(mUpdateCache.rva)).arg(ToHexString(mUpdateCache.size)).toUtf8().constData());
+                    OutputDebugStringA(QString("[vm64] %1[%2] %3[%4]").arg(ToPtrString(mUpdateCache.memBase)).arg(ToHexString(mUpdateCache.memSize)).arg(ToPtrString(mUpdateCache.rva)).arg(ToHexString(mUpdateCache.size)).toUtf8().constData());
 #endif // DEBUG
                 }
             }
