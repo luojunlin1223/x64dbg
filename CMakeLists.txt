@@ -406,10 +406,10 @@ set(dbg_SOURCES
 	"src/dbg/value.h"
 	"src/dbg/variable.cpp"
 	"src/dbg/variable.h"
-	"src/dbg/watch.cpp"
-	"src/dbg/watch.h"
 	"src/dbg/vm64.cpp"
 	"src/dbg/vm64.h"
+	"src/dbg/watch.cpp"
+	"src/dbg/watch.h"
 	"src/dbg/xrefs.cpp"
 	"src/dbg/xrefs.h"
 )
